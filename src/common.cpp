@@ -1,13 +1,6 @@
-#include <map>
-#include <string>
-
 #include "common.hpp"
 
 using namespace std;
-
-struct Env {
-    map<string, Expr> bindings;
-};
 
 Expr::Expr(string s) {
     sym = s;

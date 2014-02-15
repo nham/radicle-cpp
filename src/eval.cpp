@@ -1,13 +1,13 @@
+#include "common.hpp"
+
 #include <tuple>
 
-namespace radicle {
-    struct EvalResult {
-        Env env;
-        Expr expr;
-    }
+struct EvalResult {
+    Expr expr;
+    Env env;
+};
 
-    EvalResult eval(Env env, Expr expr) {
-        
-    }
-
+EvalResult eval(Expr expr, Env env) {
+    return EvalResult {expr, env};
 }
+

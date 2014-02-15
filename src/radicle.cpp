@@ -1,7 +1,6 @@
-#include <iostream>
-#include <string>
-
 #include "common.hpp"
+
+#include <iostream>
 
 using namespace std;
 
