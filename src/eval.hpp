@@ -3,6 +3,6 @@
 
 #include "common.hpp"
 
-ExprEnv eval(Env env, Expr expr);
+ExprEnv eval(Expr expr, Env& env);
 
 #endif

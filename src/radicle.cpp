@@ -1,4 +1,5 @@
 #include "common.hpp"
+#include "eval.hpp"
 
 #include <iostream>
 
@@ -36,7 +37,8 @@ int main(int argc, char* argv[]) {
         auto z2 = Expr("foo", nope, 0);
         cout << z2.is_atom() << z2.is_list() << '\n';
 
-        auto res = Eval::eval(x, Eval::Env {});
+        auto env = Env();
+        auto res = eval(x, env);
 
         //interpret_file(argv[1]);
     }

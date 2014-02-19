@@ -25,7 +25,7 @@ struct Expr {
 
 
 struct Env {
-    map<string, Expr> bindings;
+    map<string, Expr> *bindings;
 
     Env();
 };
