@@ -10,28 +10,20 @@ using std::map;
 using std::tuple;
 
 struct Expr {
-    explicit Expr(string s = "");
-    Expr(string s, Expr *ch, int len);
+    enum class ExprType : int {Nil, Atom, List};
 
-    virtual bool is_atom() = 0;
-
-    bool is_list() {
-        return !is_atom();
-    }
-
-    virtual bool is_empty_list() = 0;
-};
-
-struct Atom : public Expr {
-    string sym;
-    explicit Atom(string s);
-};
-
-struct List : public Expr {
+    ExprType type = ExprType::Nil;
+    string* sym = nullptr;
     Expr* exprs = nullptr;
-    int size = 0;
-    List() = default;
-    List(Expr *list, int n);
+    int exprs_size = 0;
+
+    Expr() = default;
+    explicit Expr(string& s);
+    Expr(Expr* exprs, int n);
+
+    bool is_atom();
+    bool is_list();
+    bool is_empty_list();
 };
 
 

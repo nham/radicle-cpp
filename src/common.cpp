@@ -1,28 +1,26 @@
 #include "common.hpp"
 
-Atom::Atom(string s) {
-    sym = s;
+Expr::Expr(string& s) {
+    type = Expr::ExprType::Atom;
+    sym = &s;
 }
 
-List::List(Expr *list, int n) {
+Expr::Expr(Expr* list, int n) {
+    type = Expr::ExprType::List;
     exprs = list;
-    size = n;
+    exprs_size = n;
 }
 
-bool Atom::is_atom() {
-    return true;
+bool Expr::is_atom() {
+    return type == Expr::ExprType::Atom;
 }
 
-bool Atom::is_empty_list() {
-    return false
+bool Expr::is_list() {
+    return type == Expr::ExprType::List;
 }
 
-bool List::is_atom() {
-    return false;
-}
-
-bool List::is_empty_list() {
-    return exprs == nullptr;
+bool Expr::is_empty_list() {
+    return is_list() && exprs_size == 0;
 }
 
 Env::Env() {

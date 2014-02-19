@@ -4,38 +4,44 @@
 
 using std::make_tuple;
 
-ExprEnv eval(Expr expr, Env& env) {
+bool is_symbol(Expr& expr, string s) {
+    if (!expr.is_atom()) return false;
+    return *(expr.sym) == s;
+}
+
+ExprEnv eval(Expr& expr, Env& env) {
     if (expr.is_atom()) {
-        return ExprEnv( Expr("can't yet lookup " + expr.sym), env);
+        throw EvalError("Unimplemented.");
     } else if (expr.is_empty_list()) {
         throw EvalError("No procedure to call.");
     } else {
-        if (expr.sym == "quote") {
-            if (expr.chlen != 1)
+        auto head = expr.exprs[0];
+        if (is_symbol(head, "quote")) {
+            if (expr.exprs_size != 1)
                 throw EvalError("`quote` expects exactly one argument.");
             else
                 return ExprEnv(expr, env);
 
-        } else if(expr.sym == "atom") {
-            if (expr.chlen != 1)
+        } else if(is_symbol(head, "atom")) {
+            if (expr.exprs_size != 1)
                 throw EvalError("`atom` expects exactly one argument.");
             else {
-                auto res = eval(expr.children[0], env);
-                auto val = res.get<0>;
+                auto res = eval(expr.exprs[1], env);
+                auto val = std::get<0>(res);
 
                 if (val.is_atom() || val.is_empty_list()) {
-                    return Atom("t");
+                    return Expr("t");
                 } else {
-                    return List();
+                    return Expr(nullptr, 0);
                 }
                 return ExprEnv(expr, env);
             }
 
-        } else if(expr.sym == "eq") {
-        } else if(expr.sym == "first") {
-        } else if(expr.sym == "rest") {
-        } else if(expr.sym == "cons") {
-        } else if(expr.sym == "cond") {
+        } else if(is_symbol(head, "eq")) {
+        } else if(is_symbol(head, "first")) {
+        } else if(is_symbol(head, "rest")) {
+        } else if(is_symbol(head, "cons")) {
+        } else if(is_symbol(head, "cond")) {
         } else {
             throw EvalError("Unimplemented.");
         }
@@ -43,4 +49,5 @@ ExprEnv eval(Expr expr, Env& env) {
     }
     return ExprEnv {expr, env};
 }
+
 
