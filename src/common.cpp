@@ -1,27 +1,28 @@
 #include "common.hpp"
 
-Expr::Expr(string s) {
+Atom::Atom(string s) {
     sym = s;
-    children = nullptr;
-    chlen = 0;
 }
 
-Expr::Expr(string s, Expr *ch, int len) {
-    sym = s;
-    children = ch;
-    chlen = len;
+List::List(Expr *list, int n) {
+    exprs = list;
+    size = n;
 }
 
-bool Expr::is_atom() {
-    return children == nullptr;
+bool Atom::is_atom() {
+    return true;
 }
 
-bool Expr::is_list() {
-    return ! is_atom();
+bool Atom::is_empty_list() {
+    return false
 }
 
-bool Expr::is_empty_list() {
-    return is_list() && chlen == 0;
+bool List::is_atom() {
+    return false;
+}
+
+bool List::is_empty_list() {
+    return exprs == nullptr;
 }
 
 Env::Env() {
