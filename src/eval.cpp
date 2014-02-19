@@ -1,13 +1,14 @@
-#include "common.hpp"
+#include "eval.hpp"
 
 #include <tuple>
 
-struct EvalResult {
-    Expr expr;
-    Env env;
-};
+using std::make_tuple;
 
-EvalResult eval(Expr expr, Env env) {
-    return EvalResult {expr, env};
+ExprEnv eval(Expr expr, Env& env) {
+    if (expr.is_atom()) {
+        return ExprEnv { Expr {"wowowow" + expr.getsym()}, env };
+
+    }
+    return ExprEnv {expr, env};
 }
 

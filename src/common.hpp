@@ -1,17 +1,37 @@
+#ifndef COMMON_H
+#define COMMON_H
+
 #include <string>
+#include <map>
+#include <tuple>
 
-using namespace std;
+using std::string;
+using std::map;
+using std::tuple;
 
-struct Env;
-
-class Expr {
+struct Expr {
     string sym;
     Expr *children;
     int chlen;
-    public:
-        explicit Expr(string s = "");
-        Expr(string s, Expr *ch, int len);
-        bool is_atom();
-        bool is_list();
-        bool is_empty_list();
+
+    explicit Expr(string s = "");
+    Expr(string s, Expr *ch, int len);
+
+    bool is_atom();
+    bool is_list();
+    bool is_empty_list();
+    string getsym();
 };
+
+
+struct Env {
+    map<string, Expr> bindings;
+
+    Env();
+};
+
+using ExprEnv = tuple<Expr, Env>;
+
+struct EvalError;
+
+#endif

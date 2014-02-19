@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-using namespace std;
+using std::cout;
 
 void interpret_file(char* fname) {
     for (; fname != '\0'; ++fname) {
@@ -36,6 +36,7 @@ int main(int argc, char* argv[]) {
         auto z2 = Expr("foo", nope, 0);
         cout << z2.is_atom() << z2.is_list() << '\n';
 
+        auto res = Eval::eval(x, Eval::Env {});
 
         //interpret_file(argv[1]);
     }

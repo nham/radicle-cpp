@@ -1,7 +1,5 @@
 #include "common.hpp"
 
-using namespace std;
-
 Expr::Expr(string s) {
     sym = s;
     children = nullptr;
@@ -25,3 +23,15 @@ bool Expr::is_list() {
 bool Expr::is_empty_list() {
     return is_list() && chlen == 0;
 }
+
+string Expr::getsym() {
+    return sym;
+}
+
+Env::Env() {
+    bindings = new map<string, Expr>();
+}
+
+struct EvalError {
+    string error;
+};
