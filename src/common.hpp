@@ -20,7 +20,6 @@ struct Expr {
     bool is_atom();
     bool is_list();
     bool is_empty_list();
-    string getsym();
 };
 
 
@@ -30,8 +29,11 @@ struct Env {
     Env();
 };
 
-using ExprEnv = tuple<Expr, Env>;
+using ExprEnv = tuple<Expr, Env&>;
 
-struct EvalError;
+struct EvalError {
+    string error;
+    EvalError(string s);
+};
 
 #endif
